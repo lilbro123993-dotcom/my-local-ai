@@ -18,9 +18,10 @@ if p := st.chat_input('Say something...'):
         msg = st.empty()
         full = ''
         try:
-            for chunk in ollama.chat(model='llama3', messages=st.session_state.messages, stream=True):
+            client = ollama.Client(host='https://loca.lt')
+            for chunk in client.chat(model='llama3', messages=st.session_state.messages, stream=True):
                 full += chunk['message']['content']
                 msg.markdown(full)
-        except:
-            st.error('Make sure Ollama is open and running!')
+        except Exception as e:
+            st.error('Could not connect to home hardware. Make sure the localtunnel command is active!')
     st.session_state.messages.append({'role': 'assistant', 'content': full})
