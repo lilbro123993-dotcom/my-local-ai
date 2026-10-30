@@ -18,7 +18,7 @@ if p := st.chat_input('Say something...'):
         msg = st.empty()
         full = ''
         try:
-            client = ollama.Client(host='http://117.20.69.37:11434')
+            client = ollama.Client(host='http://localhost:11434')
             for chunk in client.chat(model='llama3', messages=st.session_state.messages, stream=True):
                 full += chunk['message']['content']
                 msg.markdown(full)
